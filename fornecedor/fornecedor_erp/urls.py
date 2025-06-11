@@ -1,6 +1,12 @@
 from django.urls import path
 from . import views
 
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter(trailing_slash=False)
+router.register(r'fornecedores', views.FornecedorViewSet)
+router.register(r'compras', views.CompraViewSet)
+
 urlpatterns = [
   path('cadastrarFornecedor', views.cadastrarFornecedor),
   path('listarFornecedores', views.listarFornecedores),
@@ -11,3 +17,5 @@ urlpatterns = [
   path('excluirCompra/<int:id>', views.excluirCompra),
   path('editarCompra/<int:id>', views.editarCompra),
 ]
+
+urlpatterns += router.urls
