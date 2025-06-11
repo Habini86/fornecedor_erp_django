@@ -9,12 +9,12 @@ from rest_framework import viewsets, permissions
 class FornecedorViewSet(viewsets.ModelViewSet):
     queryset = Fornecedor.objects.all()
     serializer_class = FornecedorSerializer
-    permission_classes = [permissions.AllowAny]
-
+    permission_classes = [permissions.IsAuthenticated]
+    
 class CompraViewSet(viewsets.ModelViewSet):
     queryset = Compra.objects.all()
     serializer_class = CompraSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
 def cadastrarFornecedor(request):
     if request.method == "POST":
