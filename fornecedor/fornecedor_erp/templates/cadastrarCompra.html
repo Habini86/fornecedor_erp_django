@@ -20,7 +20,7 @@
               <a class="nav-link" href="/fornecedor/listarCompras">Compras</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Sair</a>
+              <a class="nav-link" href="/admin/logout">Sair</a>
             </li>
           </ul>
           <form class="d-flex" role="search">
@@ -51,7 +51,9 @@
           <select class="form-select" id="fornecedor" name="fornecedor" required>
             <option value="" selected disabled hidden>Selecione um fornecedor</option>
             {% for fornecedor in fornecedores %}
-              <option value="{{ fornecedor.id }}">{{ fornecedor.nome_razao }}</option>
+              {% if fornecedor.status == "ativo" %}
+                <option value="{{ fornecedor.id }}">{{ fornecedor.nome_razao }}</option>
+              {% endif %}
             {% endfor %}
           </select>
         </div>
