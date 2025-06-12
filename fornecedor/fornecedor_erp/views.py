@@ -5,6 +5,7 @@ from django.utils import timezone
 
 from .serializers import FornecedorSerializer, CompraSerializer
 from rest_framework import viewsets, permissions
+from django.contrib.auth.decorators import login_required
 
 class FornecedorViewSet(viewsets.ModelViewSet):
     queryset = Fornecedor.objects.all()
@@ -16,6 +17,7 @@ class CompraViewSet(viewsets.ModelViewSet):
     serializer_class = CompraSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+@login_required
 def cadastrarFornecedor(request):
     if request.method == "POST":
         nome_razao = request.POST.get("nome_razao")
@@ -38,13 +40,15 @@ def cadastrarFornecedor(request):
         return HttpResponseRedirect("/fornecedor/listarFornecedores")
     
     return render(request, "cadastrarForcenedor.html")
-  
+
+@login_required  
 def listarFornecedores(request):
     
     fornecedores = Fornecedor.objects.all().distinct()
 
     return render(request, "listarFornecedores.html", {"fornecedores" : fornecedores})
   
+@login_required
 def excluirFornecedor(request, id):
     fornecedor = Fornecedor.objects.get(id=id)
     
@@ -52,6 +56,7 @@ def excluirFornecedor(request, id):
     
     return HttpResponseRedirect("/fornecedor/listarFornecedores")
 
+@login_required
 def editarFornecedor(request, id):
     idFornecedor = id
     if request.method == "POST":
@@ -83,6 +88,7 @@ def editarFornecedor(request, id):
   
 from datetime import datetime
 
+@login_required
 def cadastrarCompra(request):
     fornecedores = Fornecedor.objects.all()
     if request.method == "POST":
@@ -108,12 +114,14 @@ def cadastrarCompra(request):
         return HttpResponseRedirect("/fornecedor/listarCompras")
     return render(request, "cadastrarCompra.html", {"fornecedores": fornecedores})
   
+@login_required
 def listarCompras(request):
     
     compras = Compra.objects.all().distinct()
 
     return render(request, "listarCompras.html", {"compras" : compras})
-  
+
+@login_required  
 def excluirCompra(request, id):
     compra = Compra.objects.get(id=id)
     
@@ -121,6 +129,7 @@ def excluirCompra(request, id):
     
     return HttpResponseRedirect("/fornecedor/listarCompras")
 
+@login_required
 def editarCompra(request, id):
     from datetime import datetime
     compra = Compra.objects.get(id=id)
