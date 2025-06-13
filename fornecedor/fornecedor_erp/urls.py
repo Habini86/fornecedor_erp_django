@@ -16,6 +16,7 @@ urlpatterns = [
   path('listarCompras', views.listarCompras),
   path('excluirCompra/<int:id>', views.excluirCompra),
   path('editarCompra/<int:id>', views.editarCompra),
+  path('logout/', views.logout_view),
 ]
 
 urlpatterns += router.urls

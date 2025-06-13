@@ -7,6 +7,13 @@ from .serializers import FornecedorSerializer, CompraSerializer
 from rest_framework import viewsets, permissions
 from django.contrib.auth.decorators import login_required
 
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+@login_required
+def logout_view(request):
+    logout(request)
+    return redirect('/admin')
+
 class FornecedorViewSet(viewsets.ModelViewSet):
     queryset = Fornecedor.objects.all()
     serializer_class = FornecedorSerializer
